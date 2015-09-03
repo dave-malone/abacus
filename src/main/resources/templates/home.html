@@ -1,16 +1,53 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Getting Started: Serving Web Content</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-	<h2>Headers</h2>
-	<table>
-		<tr th:each="entry : ${requestHeaders}">
-			<td th:text="${entry.key}" style="padding-right:1.3em;">Header Name</td>
-			<td th:text="${entry.value}">Header Value</td>
-		</tr>
-	</table>
-</body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Abacus</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+
+		<!-- icons -->
+		<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+		<link rel="shortcut icon" href="favicon.ico" />
+
+		<link rel="stylesheet" media="screen" href="../static/css/styles.css" th:href="@{css/styles.css}"/>
+	</head>
+	<body>
+		<div class="header">
+			<div class="container">
+				<h1 class="header-heading">Abacus</h1>
+			</div>
+		</div>
+		<div class="nav-bar">
+			<div class="container">
+				<ul class="nav">
+					<li><a href="#">Nav item 1</a></li>
+					<li><a href="#">Nav item 2</a></li>
+					<li><a href="#">Nav item 3</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="content">
+			<div class="container">
+				<div class="main">
+					<h1>Welcome to Abacus</h1>
+					<hr />
+
+					<h2>Headers</h2>
+					<table class="table table-striped">
+						<tr th:each="entry : ${requestHeaders}">
+							<td th:text="${entry.key}" style="padding-right:1.3em;">Header Name</td>
+							<td th:text="${entry.value}">Header Value</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="container">
+				&copy; Copyright 2015
+			</div>
+		</div>
+	</body>
 </html>
