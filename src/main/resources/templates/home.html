@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h2>Headers</h2>
+	<table>
+		<tr th:each="entry : ${requestHeaders}">
+			<td th:text="${entry.key}" style="padding-right:1.3em;">Header Name</td>
+			<td th:text="${entry.value}">Header Value</td>
+		</tr>
+	</table>
+</body>
+</html>
