@@ -29,6 +29,13 @@ dependencies {
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
+test {
+	reports {
+		junitXml.enabled = true
+		html.enabled = false
+	}
+}
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
