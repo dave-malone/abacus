@@ -1,6 +1,8 @@
 package io.dmalone.abacus.model;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +16,10 @@ public class Product {
 		//default constructor necessary to adhere to the Java Beans contract
 	}
 
+	public Product(String name, String price, ProductCategory... productCategories) {
+		this(name, new BigDecimal(price), productCategories);
+	}
+	
 	public Product(String name, BigDecimal price, ProductCategory... productCategories) {
 		this.name = name;
 		this.price = price;
@@ -43,15 +49,26 @@ public class Product {
 		this.productCategories = productCategories;
 	}
 	
-	public BigDecimal getPriceAfterTax(){
-		BigDecimal price = this.price;
+	public BigDecimal getTotalTax(){
+		BigDecimal total = new BigDecimal("0.0");
 		
 		for(ProductCategory productCategory : this.productCategories){
 			if(productCategory.isTaxExempt() != true){
 				BigDecimal categoryTaxRate = productCategory.getTotalTaxRate();
-				price = price.add(getPrice().multiply(categoryTaxRate));
+				total = total.add(this.price.multiply(categoryTaxRate));
 			}
 		}
+		
+		return roundCents(total);
+	}
+	
+	private BigDecimal roundCents(BigDecimal value){
+		final BigDecimal multiple = new BigDecimal("0.05");
+		return value.divide(multiple, 0, RoundingMode.UP).multiply(multiple);
+	}
+	
+	public BigDecimal getPriceAfterTax(){
+		BigDecimal price = this.price.add(getTotalTax());
 		
 		return price;
 	}

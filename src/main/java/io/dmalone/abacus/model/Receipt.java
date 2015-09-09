@@ -3,13 +3,12 @@ package io.dmalone.abacus.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class SalesTransaction {
+public class Receipt {
 
 	private List<Product> products = new ArrayList<Product>();
 
-	public boolean addProduct(Product product){
+	public boolean add(Product product){
 		return this.products.add(product);
 	}
 	
@@ -22,17 +21,27 @@ public class SalesTransaction {
 	}
 	
 	public BigDecimal getTotalBeforeTax(){
-		return null;
+		BigDecimal total = new BigDecimal("0.0");
+		
+		for(Product product : this.products){
+			total = total.add(product.getPrice());
+		}
+		
+		return total;
 	}
 	
 	public BigDecimal getTotalSalesTax(){
-		return null;
+		BigDecimal total = new BigDecimal("0.0");
+		
+		for(Product product : this.products){
+			total = total.add(product.getTotalTax());
+		}
+		
+		return total;
 	}
 	
 	public BigDecimal getTotal(){
-		BigDecimal total = new BigDecimal(0.0d);
-		
-		return total;
+		return getTotalBeforeTax().add(getTotalSalesTax());
 	}
 	
 }

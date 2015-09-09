@@ -36,7 +36,7 @@ public class ProductTest {
 		assertNotEquals(taxableProduct.getPrice(), taxableProduct.getPriceAfterTax());
 		
 		//tax with price = price + price * total 
-		BigDecimal expectedPriceWithTax = new BigDecimal("0.10").multiply(taxableProduct.getPrice()).add(taxableProduct.getPrice());
+		BigDecimal expectedPriceWithTax = new BigDecimal("5.49");
 		assertEquals(expectedPriceWithTax, taxableProduct.getPriceAfterTax());
 	}
 	
@@ -45,9 +45,8 @@ public class ProductTest {
 		taxableProduct.addCategory(anotherTaxableProductCategory);
 		assertNotNull(taxableProduct.getPriceAfterTax());
 		assertNotEquals(taxableProduct.getPrice(), taxableProduct.getPriceAfterTax());
-		
-		//tax with price = price + price * total 
-		BigDecimal expectedPriceWithTax = new BigDecimal("0.15").multiply(taxableProduct.getPrice()).add(taxableProduct.getPrice());
+
+		BigDecimal expectedPriceWithTax = new BigDecimal("5.74");
 		assertEquals(expectedPriceWithTax, taxableProduct.getPriceAfterTax());
 	}
 
