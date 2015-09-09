@@ -29,7 +29,7 @@ public class SalesTransactionTest {
 	
 	@Test
 	public void testAddProduct() {
-		
+		fail("Not yet implemented");
 	}
 
 	@Test

@@ -1,6 +1,12 @@
 package io.dmalone.abacus.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,11 +15,12 @@ public class ProductCategoryTest {
 
 	private ProductCategory taxExemptProductCategory;
 	private ProductCategory nonExemptProductCategory;
+	private final TaxRate taxRate = new TaxRate(new BigDecimal("0.10"));
 	
 	@Before
 	public void setup(){
 		this.taxExemptProductCategory = new ProductCategory("Music");
-		this.nonExemptProductCategory = new ProductCategory("Alcohol", new TaxRate(0.10d));
+		this.nonExemptProductCategory = new ProductCategory("Alcohol", taxRate);
 	}
 	
 	@Test
@@ -30,12 +37,17 @@ public class ProductCategoryTest {
 	
 	@Test
 	public void testGetTotalTaxRateReturnsNullWhenIsTaxExemptReturnsTrue() {
-		fail("Not yet implemented");
+		assertNull(this.taxExemptProductCategory.getTotalTaxRate());
+		assertTrue(this.taxExemptProductCategory.isTaxExempt());
+		assertTrue(this.taxExemptProductCategory.getTaxes().isEmpty());
 	}
 	
 	@Test
 	public void testGetTotalTaxRateReturnsCorrectValidAccordingToTaxesCollectionValues() {
-		fail("Not yet implemented");
+		assertNotNull(this.nonExemptProductCategory.getTotalTaxRate());
+		assertEquals(this.taxRate.getValue(), this.nonExemptProductCategory.getTotalTaxRate());
+		assertFalse(this.nonExemptProductCategory.isTaxExempt());
+		assertFalse(this.nonExemptProductCategory.getTaxes().isEmpty());
 	}
 
 }

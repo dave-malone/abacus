@@ -2,23 +2,53 @@ package io.dmalone.abacus.model;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class ProductTest {
 
+	private Product taxExemptProduct;
+	private Product taxableProduct;
+	private ProductCategory taxExemptProductCategory;
+	private ProductCategory taxableProductCategory;
+	private ProductCategory anotherTaxableProductCategory;
+	
+	@Before
+	public void setup(){
+		taxExemptProductCategory = new ProductCategory("Tax Exempt");
+		taxableProductCategory = new ProductCategory("Taxable", new TaxRate(new BigDecimal("0.10")));
+		anotherTaxableProductCategory = new ProductCategory("I'm taxable, too!", new TaxRate(new BigDecimal("0.05")));
+		taxExemptProduct = new Product("Tax Exempt Product", new BigDecimal("9.99"), taxExemptProductCategory);
+		taxableProduct = new Product("Taxable Product", new BigDecimal("4.99"), taxableProductCategory);
+	}
+	
 	@Test
 	public void testGetPriceAfterTaxReturnsSameValueAsGetPriceWhenProductCategoryIsTaxExemptOnly() {
-		fail("Not yet implemented");
+		assertNotNull(taxExemptProduct.getPriceAfterTax());
+		assertEquals(taxExemptProduct.getPrice(), taxExemptProduct.getPriceAfterTax());
 	}
 	
 	@Test
 	public void testGetPriceAfterTaxReturnsCorrectValueBasedOnTaxRateReturnedFromOneProductCategory() {
-		fail("Not yet implemented");
+		assertNotNull(taxableProduct.getPriceAfterTax());
+		assertNotEquals(taxableProduct.getPrice(), taxableProduct.getPriceAfterTax());
+		
+		//tax with price = price + price * total 
+		BigDecimal expectedPriceWithTax = new BigDecimal("0.10").multiply(taxableProduct.getPrice()).add(taxableProduct.getPrice());
+		assertEquals(expectedPriceWithTax, taxableProduct.getPriceAfterTax());
 	}
 	
 	@Test
 	public void testGetPriceAfterTaxReturnsCorrectValueBasedOnTaxRateReturnedFromMultipleProductCategories() {
-		fail("Not yet implemented");
+		taxableProduct.addCategory(anotherTaxableProductCategory);
+		assertNotNull(taxableProduct.getPriceAfterTax());
+		assertNotEquals(taxableProduct.getPrice(), taxableProduct.getPriceAfterTax());
+		
+		//tax with price = price + price * total 
+		BigDecimal expectedPriceWithTax = new BigDecimal("0.15").multiply(taxableProduct.getPrice()).add(taxableProduct.getPrice());
+		assertEquals(expectedPriceWithTax, taxableProduct.getPriceAfterTax());
 	}
 
 }

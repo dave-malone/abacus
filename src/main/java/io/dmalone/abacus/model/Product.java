@@ -49,11 +49,15 @@ public class Product {
 		for(ProductCategory productCategory : this.productCategories){
 			if(productCategory.isTaxExempt() != true){
 				BigDecimal categoryTaxRate = productCategory.getTotalTaxRate();
-				price.add(getPrice().multiply(categoryTaxRate));
+				price = price.add(getPrice().multiply(categoryTaxRate));
 			}
 		}
 		
 		return price;
+	}
+
+	public void addCategory(ProductCategory productCategory) {
+		this.productCategories.add(productCategory);
 	}
 	
 }

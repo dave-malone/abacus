@@ -1,22 +1,23 @@
 package io.dmalone.abacus.model;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class SalesTransaction {
 
-	private Set<Product> products = new HashSet<Product>();
+	private List<Product> products = new ArrayList<Product>();
 
 	public boolean addProduct(Product product){
 		return this.products.add(product);
 	}
 	
-	public Set<Product> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<Product> products) {
+	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 	

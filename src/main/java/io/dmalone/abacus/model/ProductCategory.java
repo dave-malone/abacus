@@ -60,6 +60,10 @@ public class ProductCategory {
 		
 		BigDecimal totalTaxRate = new BigDecimal(0.0d);
 		
+		for(TaxRate tax : this.taxes){
+			totalTaxRate = totalTaxRate.add(tax.getValue());
+		}
+		
 		return totalTaxRate;
 	}
 	

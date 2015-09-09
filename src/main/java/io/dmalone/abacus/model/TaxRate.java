@@ -10,7 +10,7 @@ public class TaxRate {
 		//default constructor necessary to adhere to the Java Beans contract
 	}
 
-	public TaxRate(double value){
+	public TaxRate(String value){
 		this.setValue(value);
 	}
 	
@@ -22,7 +22,7 @@ public class TaxRate {
 		return value;
 	}
 	
-	public void setValue(double value){
+	public void setValue(String value){
 		this.setValue(new BigDecimal(value));
 	}
 
