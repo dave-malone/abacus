@@ -1,7 +1,6 @@
 package io.dmalone.abacus.model;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Set;
@@ -59,10 +58,14 @@ public class Product {
 			}
 		}
 		
-		return roundCents(total);
+		return applyRoundingRules(total);
 	}
 	
-	private BigDecimal roundCents(BigDecimal value){
+	/*
+	 * TODO - externalize this rounding algorithm into something like a Groovy
+	 * file which can be reloaded and picked up automatically at runtime
+	 */
+	private BigDecimal applyRoundingRules(BigDecimal value){
 		final BigDecimal multiple = new BigDecimal("0.05");
 		return value.divide(multiple, 0, RoundingMode.UP).multiply(multiple);
 	}

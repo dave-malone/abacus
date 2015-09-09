@@ -7,6 +7,13 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This class would be better represented in a BDD test framework, but time will not currently permit
+ * integrating a framework such as FitNesse at this point
+ * 
+ * @author dmalone
+ *
+ */
 public class ReceiptTest {
 
 	private TaxRate basicSalesTax;
